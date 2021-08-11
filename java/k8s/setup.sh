@@ -96,6 +96,15 @@ create_backend_service ${WALLET_V1_BACKEND_SERVICE_NAME} ${WALLET_V1_SERVICE_HEA
 create_health_check ${WALLET_V2_SERVICE_HEALTH_CHECK_NAME} ${WALLET_V2_ADMIN_PORT}
 create_backend_service ${WALLET_V2_BACKEND_SERVICE_NAME} ${WALLET_V2_SERVICE_HEALTH_CHECK_NAME} ${WALLET_V2_NEG_NAME}
 
+  # Run this in a for loop if your project is not exempt from the GCE firewall
+  # enforcer which will delete your rules periodically.
+  #
+gcloud compute firewall-rules create ${FIREWALL_RULE_NAME} \
+    --network default --action allow --direction INGRESS \
+    --source-ranges 35.191.0.0/16,130.211.0.0/22 \
+    --target-tags allow-health-checks \
+    --rules tcp
+
 create_routing_components
 create_security_components
 

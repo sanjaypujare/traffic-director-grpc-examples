@@ -1,6 +1,6 @@
 #! /bin/sh
 
-set -euo pipefail
+#set -euo pipefail
 set -x
 
 . ./00-common-env.sh
@@ -42,5 +42,8 @@ delete_cloud_router_instances
 
 delete_server_security_components
 delete_client_security_components
+
+
+gcloud compute firewall-rules delete ${FIREWALL_RULE_NAME}  -q
 
 #disable_apis

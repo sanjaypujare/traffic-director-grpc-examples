@@ -21,15 +21,6 @@ function create_backend_service {
   local HEALTH_CHECK_NAME="$2"
   local NEG_NAME="$3"
 
-  # Run this in a for loop if your project is not exempt from the GCE firewall
-  # enforcer which will delete your rules periodically.
-  #
-  # gcloud compute firewall-rules create ${FIREWALL_RULE_NAME} \
-  #  --network default --action allow --direction INGRESS \
-  #  --source-ranges 35.191.0.0/16,130.211.0.0/22 \
-  #  --target-tags allow-health-checks \
-  #  --rules tcp:${SERVICE_PORT}
-
   gcloud compute backend-services create ${BACKEND_SERVICE_NAME} \
     --global \
     --load-balancing-scheme=INTERNAL_SELF_MANAGED \
