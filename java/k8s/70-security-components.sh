@@ -1,7 +1,6 @@
 #! /bin/bash
 
 function create_security_components {
-  : '
   envsubst < ServerMtlsPolicy.yaml | gcloud beta network-security \
     server-tls-policies import ${SERVER_MTLS_POLICY_NAME} --location=global
 
@@ -10,7 +9,6 @@ function create_security_components {
 
   envsubst < ClientMtlsPolicy.yaml | gcloud beta network-security \
     client-tls-policies import ${CLIENT_MTLS_POLICY_NAME} --location=global
-  '
 
   backend_services=("${ACCOUNT_BACKEND_SERVICE_NAME}" \
     "${STATS_BACKEND_SERVICE_NAME}" \
