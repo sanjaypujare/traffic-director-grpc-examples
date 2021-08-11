@@ -12,7 +12,7 @@ set -x
 . ./70-security-components.sh
 . ./75-client-deployment.sh
 
-#delete_client_deployment
+delete_client_deployment
 
 delete_routing_components
 
