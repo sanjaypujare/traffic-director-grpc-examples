@@ -19,19 +19,19 @@ function create_client_deployment {
   # This command calls 'FetchBalance' from 'wallet-service' in a loop,
   # to demonstrate that 'FetchBalance' gets responses from 'wallet-v1' (40%)
   # and 'wallet-v2' (60%).
-  # ./wallet_client balance --wallet_server="xds:///wallet.grpcwallet.io" --unary_watch --creds="xds"
+  # /build/install/wallet/bin/client balance --creds=xds --wallet_server="xds:///wallet.grpcwallet.io" --unary_watch=true
 
   # This command calls the streaming RPC 'WatchBalance' from 'wallet-service'.
   # The RPC path matches the service prefix, so all requests
   # are sent to 'wallet-v2'.
-  # ./wallet_client balance --wallet_server="xds:///wallet.grpcwallet.io" --watch --creds="xds"
+  # /build/install/wallet/bin/client balance --creds=xds --wallet_server="xds:///wallet.grpcwallet.io" --watch=true
 
   # This command calls 'WatchPrice' from 'stats-service'. It sends the
   # user's membership (premium or not) in metadata. Premium requests are
   # all sent to 'stats-premium' and get faster responses. Alice's requests
   # always go to premium and Bob's go to regular.
-  # ./wallet_client price --stats_server="xds:///stats.grpcwallet.io" --watch --user=Bob --creds="xds"
-  # ./wallet_client price --stats_server="xds:///stats.grpcwallet.io" --watch --user=Alice --creds="xds"
+  # /build/install/wallet/bin/client price --creds=xds --stats_server="xds:///stats.grpcwallet.io" --watch=true --user=Bob
+  # /build/install/wallet/bin/client price --creds=xds --stats_server="xds:///stats.grpcwallet.io" --watch=true --user=Alice
 }
 
 function delete_client_deployment {
