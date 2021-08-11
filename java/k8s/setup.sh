@@ -23,6 +23,7 @@ create_k8s_resources ${ACCOUNT_SERVICE_NAME} \
   ${ACCOUNT_SERVICE_PORT} \
   ${ACCOUNT_NEG_NAME} \
   ${ACCOUNT_SERVICE_IMAGE} \
+  ${ACCOUNT_SERVER_CMD} \
   --port=${ACCOUNT_SERVICE_PORT} \
   --admin_port=${ACCOUNT_ADMIN_PORT} \
   --creds="xds" \
@@ -33,6 +34,7 @@ create_k8s_resources ${STATS_SERVICE_NAME} \
   ${STATS_SERVICE_PORT} \
   ${STATS_NEG_NAME} \
   ${STATS_SERVICE_IMAGE} \
+  ${STATS_SERVER_CMD} \
   --port=${STATS_SERVICE_PORT} \
   --admin_port=${STATS_ADMIN_PORT} \
   --hostname_suffix=stats \
@@ -44,6 +46,7 @@ create_k8s_resources ${STATS_PREMIUM_SERVICE_NAME} \
   ${STATS_PREMIUM_SERVICE_PORT} \
   ${STATS_PREMIUM_NEG_NAME} \
   ${STATS_PREMIUM_SERVICE_IMAGE} \
+  ${STATS_SERVER_CMD} \
   --port=${STATS_SERVICE_PORT} \
   --admin_port=${STATS_ADMIN_PORT} \
   --hostname_suffix=stats_premium \
@@ -56,6 +59,7 @@ create_k8s_resources ${WALLET_V1_SERVICE_NAME} \
   ${WALLET_V1_SERVICE_PORT} \
   ${WALLET_V1_NEG_NAME} \
   ${WALLET_V1_SERVICE_IMAGE} \
+  ${WALLET_SERVER_CMD} \
   --port=${WALLET_V1_SERVICE_PORT} \
   --admin_port=${WALLET_V1_ADMIN_PORT} \
   --hostname_suffix=wallet_v1 \
@@ -69,6 +73,7 @@ create_k8s_resources ${WALLET_V2_SERVICE_NAME} \
   ${WALLET_V2_SERVICE_PORT} \
   ${WALLET_V2_NEG_NAME} \
   ${WALLET_V2_SERVICE_IMAGE} \
+  ${WALLET_SERVER_CMD} \
   --port=${WALLET_V2_SERVICE_PORT} \
   --admin_port=${WALLET_V2_ADMIN_PORT} \
   --hostname_suffix=wallet_v2 \
