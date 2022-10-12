@@ -145,7 +145,7 @@ public class StatsServer {
 
   private void start() throws IOException {
     if (!gcpClientProject.isEmpty()) {
-      Observability.registerExporters(gcpClientProject);
+      //Observability.registerExporters(gcpClientProject);
     }
     HealthStatusManager health = new HealthStatusManager();
     // start an admin+health server in plaintext mode

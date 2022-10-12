@@ -37,7 +37,6 @@ import io.grpc.examples.wallet.stats.PriceRequest;
 import io.grpc.examples.wallet.stats.PriceResponse;
 import io.grpc.examples.wallet.stats.StatsGrpc;
 import io.grpc.xds.XdsChannelCredentials;
-import io.opencensus.trace.Tracing;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
@@ -74,7 +73,7 @@ public class Client {
     logger.info("Will try to run " + command);
 
     if (!gcpClientProject.isEmpty()) {
-      Observability.registerExporters(gcpClientProject);
+      //Observability.registerExporters(gcpClientProject);
     }
 
     String target;
@@ -157,7 +156,7 @@ public class Client {
       managedChannel.shutdownNow().awaitTermination(5, SECONDS);
       if (gcpClientProject != "") {
         // For demo purposes, shutdown the trace exporter to flush any pending traces.
-        Tracing.getExportComponent().shutdown();
+        //Tracing.getExportComponent().shutdown();
       }
     }
   }
