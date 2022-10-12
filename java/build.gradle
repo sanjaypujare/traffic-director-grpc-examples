@@ -27,7 +27,6 @@ dependencies {
             "io.opencensus:opencensus-contrib-grpc-metrics:${opencensusVersion}",
             "io.opencensus:opencensus-exporter-stats-stackdriver:${opencensusVersion}",
             "io.opencensus:opencensus-exporter-trace-stackdriver:${opencensusVersion}"
-    implementation "io.grpc:grpc-census:${grpcVersion}"
     implementation "io.grpc:grpc-protobuf:${grpcVersion}"
     implementation "io.grpc:grpc-stub:${grpcVersion}"
     implementation "io.grpc:grpc-services:${grpcVersion}"
