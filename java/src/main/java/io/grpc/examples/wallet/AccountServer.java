@@ -28,6 +28,7 @@ import io.grpc.examples.wallet.account.AccountGrpc;
 import io.grpc.examples.wallet.account.GetUserInfoRequest;
 import io.grpc.examples.wallet.account.GetUserInfoResponse;
 import io.grpc.examples.wallet.account.MembershipType;
+import io.grpc.gcp.observability.GcpObservability;
 import io.grpc.health.v1.HealthCheckResponse.ServingStatus;
 import io.grpc.protobuf.services.ProtoReflectionService;
 import io.grpc.services.AdminInterface;
@@ -53,6 +54,7 @@ public class AccountServer {
   private String hostnameSuffix = "";
   private String gcpClientProject = "";
   private CredentialsType credentialsType = CredentialsType.INSECURE;
+  private GcpObservability observability;
 
   void parseArgs(String[] args) {
     boolean usage = false;
@@ -114,7 +116,7 @@ public class AccountServer {
 
   private void start() throws IOException {
     if (!gcpClientProject.isEmpty()) {
-      //Observability.registerExporters(gcpClientProject);
+      observability = GcpObservability.grpcInit();
     }
     HealthStatusManager health = new HealthStatusManager();
     // start an admin+health server in plaintext mode
@@ -174,6 +176,9 @@ public class AccountServer {
     }
     if (adminServer != null) {
       adminServer.shutdown().awaitTermination(30, SECONDS);
+    }
+    if (observability != null) {
+      observability.close();
     }
   }
 

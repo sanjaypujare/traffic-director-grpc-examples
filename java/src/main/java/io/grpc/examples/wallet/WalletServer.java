@@ -29,6 +29,7 @@ import io.grpc.examples.wallet.stats.PriceRequest;
 import io.grpc.examples.wallet.stats.PriceResponse;
 import io.grpc.examples.wallet.stats.StatsGrpc;
 import io.grpc.Grpc;
+import io.grpc.gcp.observability.GcpObservability;
 import io.grpc.health.v1.HealthCheckResponse.ServingStatus;
 import io.grpc.InsecureChannelCredentials;
 import io.grpc.InsecureServerCredentials;
@@ -75,6 +76,7 @@ public class WalletServer {
 
   private ManagedChannel accountChannel;
   private ManagedChannel statsChannel;
+  private GcpObservability observability;
 
   void parseArgs(String[] args) {
     boolean usage = false;
@@ -151,7 +153,7 @@ public class WalletServer {
 
   private void start() throws IOException {
     if (!gcpClientProject.isEmpty()) {
-      //Observability.registerExporters(gcpClientProject);
+      observability = GcpObservability.grpcInit();
     }
     HealthStatusManager health = new HealthStatusManager();
     // start an admin+health server in plaintext mode
@@ -228,6 +230,9 @@ public class WalletServer {
     }
     if (statsChannel != null) {
       statsChannel.shutdownNow().awaitTermination(5, SECONDS);
+    }
+    if (observability != null) {
+      observability.close();
     }
   }
 

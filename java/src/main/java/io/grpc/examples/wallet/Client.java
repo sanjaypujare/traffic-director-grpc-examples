@@ -36,7 +36,9 @@ import io.grpc.StatusRuntimeException;
 import io.grpc.examples.wallet.stats.PriceRequest;
 import io.grpc.examples.wallet.stats.PriceResponse;
 import io.grpc.examples.wallet.stats.StatsGrpc;
+import io.grpc.gcp.observability.GcpObservability;
 import io.grpc.xds.XdsChannelCredentials;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
@@ -69,11 +71,12 @@ public class Client {
   private boolean affinity;
   private CredentialsType credentialsType = CredentialsType.INSECURE;
 
-  public void run() throws InterruptedException, ExecutionException {
+  public void run() throws InterruptedException, ExecutionException, IOException {
     logger.info("Will try to run " + command);
 
+    GcpObservability observability = null;
     if (!gcpClientProject.isEmpty()) {
-      //Observability.registerExporters(gcpClientProject);
+      observability = GcpObservability.grpcInit();
     }
 
     String target;
@@ -154,9 +157,8 @@ public class Client {
       return;
     } finally {
       managedChannel.shutdownNow().awaitTermination(5, SECONDS);
-      if (gcpClientProject != "") {
-        // For demo purposes, shutdown the trace exporter to flush any pending traces.
-        //Tracing.getExportComponent().shutdown();
+      if (gcpClientProject != "" && observability != null) {
+        observability.close();
       }
     }
   }
