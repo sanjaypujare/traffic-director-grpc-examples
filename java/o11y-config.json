@@ -1,5 +1,12 @@
 {
   "enable_cloud_logging": true,
+  "log_filters": [
+    {
+      "pattern": "*/*",
+      "header_bytes": 4096,
+      "message_bytes": 2048
+    }
+  ],
   "enable_cloud_monitoring": true,
   "enable_cloud_trace": true,
   "global_trace_sampling_rate": 1.00
