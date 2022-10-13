@@ -23,6 +23,10 @@ spec:
   containers:
   - name: client
     image: gcr.io/grpc-testing/wallet-o11y-example:0.5
+    imagePullPolicy: Always
+    env:
+    - name: GRPC_CONFIG_OBSERVABILITY_JSON
+      value: "/o11y-config.json"
 ---
 apiVersion: v1
 kind: Pod
@@ -36,6 +40,10 @@ spec:
   containers:
   - name: account-server
     image: gcr.io/grpc-testing/wallet-o11y-example:0.5
+    imagePullPolicy: Always
+    env:
+    - name: GRPC_CONFIG_OBSERVABILITY_JSON
+      value: "/o11y-config.json"
 ---
 apiVersion: v1
 kind: Pod
@@ -49,6 +57,10 @@ spec:
   containers:
   - name: stats-server
     image: gcr.io/grpc-testing/wallet-o11y-example:0.5
+    imagePullPolicy: Always
+    env:
+    - name: GRPC_CONFIG_OBSERVABILITY_JSON
+      value: "/o11y-config.json"
 ---
 apiVersion: v1
 kind: Pod
@@ -62,3 +74,7 @@ spec:
   containers:
   - name: wallet-server
     image: gcr.io/grpc-testing/wallet-o11y-example:0.5
+    imagePullPolicy: Always
+    env:
+    - name: GRPC_CONFIG_OBSERVABILITY_JSON
+      value: "/o11y-config.json"

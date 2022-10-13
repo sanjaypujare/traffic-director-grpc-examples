@@ -75,7 +75,8 @@ public class Client {
     logger.info("Will try to run " + command);
 
     GcpObservability observability = null;
-    if (!gcpClientProject.isEmpty()) {
+    if (System.getenv("GRPC_CONFIG_OBSERVABILITY") != null ||
+        System.getenv("GRPC_CONFIG_OBSERVABILITY_JSON") != null) {
       observability = GcpObservability.grpcInit();
     }
 
