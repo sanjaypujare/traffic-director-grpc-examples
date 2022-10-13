@@ -35,6 +35,8 @@ RUN mkdir -p /build/install/wallet
 
 COPY --from=0 /artifacts /build/install/wallet
 
+ADD java/o11y-config.json /o11y-config.json
+
 RUN ln -s /build/install/wallet/bin/account-server /account-server
 
 RUN ln -s /build/install/wallet/bin/stats-server /stats-server
