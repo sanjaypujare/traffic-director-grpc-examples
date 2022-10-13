@@ -12,8 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Dockerfile for building an image with all binaries required for the C++ wallet example.
-# To build the image, run the following command (after replacing <TAG>) from the traffic-director-grpc-examples directory:
+# Dockerfile for building an image with all binaries required for the Java wallet example.
+#
+# First build the example in the java/ directory using "./gradlew installDist"
+# Then to build the image, run the following command (after replacing <TAG>) from the traffic-director-grpc-examples directory:
 # docker build -t <TAG> -f java/Dockerfile .
 
 
