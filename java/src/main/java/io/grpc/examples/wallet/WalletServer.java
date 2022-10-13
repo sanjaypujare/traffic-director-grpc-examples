@@ -258,6 +258,7 @@ public class WalletServer {
         ImmutableMap.<String, Long>builder().put("cd0aa985", 314L).put("454349e4", 159L).build();
     private final ImmutableMap<String, Long> bobsWallet =
         ImmutableMap.<String, Long>builder().put("148de9c5", 271L).put("2e7d2c03", 828L).build();
+    private int errorCounter = 0;
 
     private WalletImpl(
         ManagedChannel accountChannel, ManagedChannel statsChannel, boolean v1Behavior) {
@@ -362,6 +363,15 @@ public class WalletServer {
         wallet = validateMembershipAndGetWallet(token, membership);
       } catch (StatusRuntimeException e) {
         responseObserver.onError(e);
+        return;
+      }
+
+      // fail every 5th RPC for non-premium membership
+      if (!"premium".equals(membership) && ++errorCounter == 5) {
+        System.err.println("*** o11y-demo error introduced");
+        errorCounter = 0;
+        responseObserver.onError(
+            Status.RESOURCE_EXHAUSTED.augmentDescription("o11y-demo error").asRuntimeException());
         return;
       }
 
