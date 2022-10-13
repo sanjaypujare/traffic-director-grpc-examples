@@ -41,6 +41,8 @@ spec:
   - name: account-server
     image: gcr.io/grpc-testing/wallet-o11y-example:0.5
     imagePullPolicy: Always
+    command:
+    - /account-server
     env:
     - name: GRPC_CONFIG_OBSERVABILITY_JSON
       value: "/o11y-config.json"
@@ -58,6 +60,9 @@ spec:
   - name: stats-server
     image: gcr.io/grpc-testing/wallet-o11y-example:0.5
     imagePullPolicy: Always
+    command:
+    - /stats-server
+    - --account_server=account-server.default-subdomain.default.svc.cluster.local:18883
     env:
     - name: GRPC_CONFIG_OBSERVABILITY_JSON
       value: "/o11y-config.json"
@@ -75,6 +80,10 @@ spec:
   - name: wallet-server
     image: gcr.io/grpc-testing/wallet-o11y-example:0.5
     imagePullPolicy: Always
+    command:
+    - /wallet-server
+    - --account_server=account-server.default-subdomain.default.svc.cluster.local:18883
+    - --stats_server=stats-server.default-subdomain.default.svc.cluster.local:18882
     env:
     - name: GRPC_CONFIG_OBSERVABILITY_JSON
       value: "/o11y-config.json"
