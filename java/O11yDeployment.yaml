@@ -1,8 +1,25 @@
 apiVersion: v1
+kind: Service
+metadata:
+  name: default-subdomain
+spec:
+  selector:
+    name: wallet
+  clusterIP: None
+  ports:
+  - name: foo # Actually, no port is needed.
+    port: 1234
+    targetPort: 1234
+---
+apiVersion: v1
 kind: Pod
 metadata:
   name: client
+  labels:
+    name: wallet
 spec:
+  hostname: client
+  subdomain: default-subdomain
   containers:
   - name: client
     image: gcr.io/grpc-testing/wallet-o11y-example:0.5
@@ -11,7 +28,11 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: account-server
+  labels:
+    name: wallet
 spec:
+  hostname: account-server
+  subdomain: default-subdomain
   containers:
   - name: account-server
     image: gcr.io/grpc-testing/wallet-o11y-example:0.5
@@ -20,7 +41,11 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: stats-server
+  labels:
+    name: wallet
 spec:
+  hostname: stats-server
+  subdomain: default-subdomain
   containers:
   - name: stats-server
     image: gcr.io/grpc-testing/wallet-o11y-example:0.5
@@ -29,7 +54,11 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: wallet-server
+  labels:
+    name: wallet
 spec:
+  hostname: wallet-server
+  subdomain: default-subdomain
   containers:
   - name: wallet-server
     image: gcr.io/grpc-testing/wallet-o11y-example:0.5
