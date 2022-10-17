@@ -22,7 +22,7 @@ spec:
   subdomain: default-subdomain
   containers:
   - name: client
-    image: gcr.io/grpc-testing/wallet-o11y-example:0.5
+    image: grpctesting/wallet-o11y-example:0.5
     imagePullPolicy: Always
     env:
     - name: GRPC_CONFIG_OBSERVABILITY_JSON
@@ -39,7 +39,7 @@ spec:
   subdomain: default-subdomain
   containers:
   - name: account-server
-    image: gcr.io/grpc-testing/wallet-o11y-example:0.5
+    image: grpctesting/wallet-o11y-example:0.5
     imagePullPolicy: Always
     command:
     - /account-server
@@ -58,7 +58,7 @@ spec:
   subdomain: default-subdomain
   containers:
   - name: stats-server
-    image: gcr.io/grpc-testing/wallet-o11y-example:0.5
+    image: grpctesting/wallet-o11y-example:0.5
     imagePullPolicy: Always
     command:
     - /stats-server
@@ -78,7 +78,7 @@ spec:
   subdomain: default-subdomain
   containers:
   - name: wallet-server
-    image: gcr.io/grpc-testing/wallet-o11y-example:0.5
+    image: grpctesting/wallet-o11y-example:0.5
     imagePullPolicy: Always
     command:
     - /wallet-server
