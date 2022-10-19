@@ -115,8 +115,8 @@ public class AccountServer {
   }
 
   private void start() throws IOException {
-    if (System.getenv("GRPC_CONFIG_OBSERVABILITY") != null ||
-        System.getenv("GRPC_CONFIG_OBSERVABILITY_JSON") != null) {
+    if (System.getenv("GRPC_GCP_OBSERVABILITY_CONFIG") != null ||
+        System.getenv("GRPC_GCP_OBSERVABILITY_CONFIG_FILE") != null) {
       observability = GcpObservability.grpcInit();
     }
     HealthStatusManager health = new HealthStatusManager();

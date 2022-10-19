@@ -22,10 +22,10 @@ spec:
   subdomain: default-subdomain
   containers:
   - name: client
-    image: grpctesting/wallet-o11y-example:0.5
+    image: grpctesting/wallet-o11y-example:0.6
     imagePullPolicy: Always
     env:
-    - name: GRPC_CONFIG_OBSERVABILITY_JSON
+    - name: GRPC_GCP_OBSERVABILITY_CONFIG_FILE
       value: "/o11y-config.json"
 ---
 apiVersion: v1
@@ -39,12 +39,12 @@ spec:
   subdomain: default-subdomain
   containers:
   - name: account-server
-    image: grpctesting/wallet-o11y-example:0.5
+    image: grpctesting/wallet-o11y-example:0.6
     imagePullPolicy: Always
     command:
     - /account-server
     env:
-    - name: GRPC_CONFIG_OBSERVABILITY_JSON
+    - name: GRPC_GCP_OBSERVABILITY_CONFIG_FILE
       value: "/o11y-config.json"
 ---
 apiVersion: v1
@@ -58,13 +58,13 @@ spec:
   subdomain: default-subdomain
   containers:
   - name: stats-server
-    image: grpctesting/wallet-o11y-example:0.5
+    image: grpctesting/wallet-o11y-example:0.6
     imagePullPolicy: Always
     command:
     - /stats-server
     - --account_server=account-server.default-subdomain.default.svc.cluster.local:18883
     env:
-    - name: GRPC_CONFIG_OBSERVABILITY_JSON
+    - name: GRPC_GCP_OBSERVABILITY_CONFIG_FILE
       value: "/o11y-config.json"
 ---
 apiVersion: v1
@@ -78,12 +78,12 @@ spec:
   subdomain: default-subdomain
   containers:
   - name: wallet-server
-    image: grpctesting/wallet-o11y-example:0.5
+    image: grpctesting/wallet-o11y-example:0.6
     imagePullPolicy: Always
     command:
     - /wallet-server
     - --account_server=account-server.default-subdomain.default.svc.cluster.local:18883
     - --stats_server=stats-server.default-subdomain.default.svc.cluster.local:18882
     env:
-    - name: GRPC_CONFIG_OBSERVABILITY_JSON
+    - name: GRPC_GCP_OBSERVABILITY_CONFIG_FILE
       value: "/o11y-config.json"

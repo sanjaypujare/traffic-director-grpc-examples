@@ -1,13 +1,18 @@
 {
-  "enable_cloud_logging": true,
-  "log_filters": [
-    {
-      "pattern": "*/*",
-      "header_bytes": 4096,
-      "message_bytes": 2048
-    }
-  ],
-  "enable_cloud_monitoring": true,
-  "enable_cloud_trace": true,
-  "global_trace_sampling_rate": 1.00
+  "cloud_logging": {
+    "client_rpc_events": [{
+      "methods": ["*"],
+      "max_metadata_bytes": 4096,
+      "max_message_bytes": 4096
+    }],
+    "server_rpc_events": [{
+      "methods": ["*"],
+      "max_metadata_bytes": 4096,
+      "max_message_bytes": 4096
+    }]
+  },
+  "cloud_monitoring": {},
+  "cloud_trace": {
+    "sampling_rate": 1.00
+  }
 }
